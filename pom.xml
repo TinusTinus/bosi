@@ -19,17 +19,11 @@
     <maven-scala-plugin.version>2.15.2</maven-scala-plugin.version>
     <scala.version>2.11</scala.version>
     <scala-logging.version>3.1.0</scala-logging.version>
-    <scala-xml.version>1.0.1</scala-xml.version>
     <scalatest.version>2.1.3</scalatest.version>
   </properties>
 
   <dependencies>
-    <!-- TODO do we need scala-xml? -->
-    <dependency>
-      <groupId>org.scala-lang.modules</groupId>
-      <artifactId>scala-xml_${scala.version}</artifactId>
-      <version>${scala-xml.version}</version>
-    </dependency>
+    <!-- reusable game engine parts -->
     <dependency>
       <groupId>nl.mvdr.game</groupId>
       <artifactId>game-engine</artifactId>
