@@ -8,13 +8,14 @@ import nl.mvdr.breakout.input.BreakoutInput
 import nl.mvdr.game.engine.GameLoop
 import scala.collection.JavaConversions
 import nl.mvdr.game.input.InputController
+import com.typesafe.scalalogging.LazyLogging
 
 /**
  * Main class, which launches the game.
  * 
  * @author Martijn van de Rijdt
  */
-object Breakout {
+object Breakout extends LazyLogging {
   
   /**
    * Main method.
@@ -32,5 +33,7 @@ object Breakout {
     
     val loop = new GameLoop(JavaConversions.seqAsJavaList(inputControllers), engine, renderer)
     loop.start()
+    
+    logger.info("Started the main game loop: {}", loop)
   }
 }
