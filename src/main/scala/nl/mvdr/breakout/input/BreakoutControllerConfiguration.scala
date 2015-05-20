@@ -46,15 +46,12 @@ private object ConversionHelper {
 
 /** Helper class to construct a default controller mapping. */
 private object DefaultControllerMapping {
-  private val environmentControllers = ControllerEnvironment.getDefaultEnvironment.getControllers.toSet
-  val keyboardControllers = environmentControllers filter (_.getType == Type.KEYBOARD)
+  lazy private val environmentControllers = ControllerEnvironment.getDefaultEnvironment.getControllers.toSet
+  lazy val keyboardControllers = environmentControllers filter (_.getType == Type.KEYBOARD)
 
   private def inputMapping(key: Key) = {
     keyboardControllers map (controller => new InputMapping(controller getComponent key, 1))
   }
   
-  private val leftKeys = inputMapping(Key.LEFT)
-  private val rightKeys = inputMapping(Key.RIGHT)
-
-  val defaultMapping = Map((BreakoutInput.LEFT, leftKeys), (BreakoutInput.RIGHT, rightKeys))
+  def defaultMapping = Map((BreakoutInput.LEFT, inputMapping(Key.LEFT)), (BreakoutInput.RIGHT, inputMapping(Key.RIGHT)))
 }
