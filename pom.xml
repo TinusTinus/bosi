@@ -19,6 +19,7 @@
   </properties>
 
   <dependencies>
+    <!-- TODO do we need scala-xml? -->
     <dependency>
       <groupId>org.scala-lang.modules</groupId>
       <artifactId>scala-xml_${scala.version}</artifactId>
@@ -72,6 +73,8 @@
           </args>
         </configuration>
       </plugin>
+      
+      <!-- TODO add an assembly descriptor to build a zip -->
     </plugins>
   </build>
 
