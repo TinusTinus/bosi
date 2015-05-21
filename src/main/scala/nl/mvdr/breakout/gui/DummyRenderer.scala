@@ -6,6 +6,8 @@ import nl.mvdr.breakout.state.BreakoutState
 /**
  * Dummy implementation of {@link GameRenderer}.
  *
+ * @constructor Creates a new renderer.
+ * 
  * @author Martijn van de Rijdt
  */
 class DummyRenderer extends GameRenderer[BreakoutState] {

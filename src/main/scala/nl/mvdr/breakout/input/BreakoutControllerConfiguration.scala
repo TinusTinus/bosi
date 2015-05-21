@@ -11,6 +11,10 @@ import net.java.games.input.Component.Identifier.Key
 /**
  * Controller configuration for a game of Breakout.
  *
+ * @constructor Constructor to create a new configuration.
+ * @param mapping mapping from inputs to the corresponding buttons (or other input devices); all {@link BreakoutInput} values should occur as a key
+ * @param controllers all controllers used by the buttons in mapping
+ * 
  * @author Martijn van de Rijdt
  */
 class BreakoutControllerConfiguration(mapping: Map[BreakoutInput, Set[InputMapping]], controllers: Set[Controller])

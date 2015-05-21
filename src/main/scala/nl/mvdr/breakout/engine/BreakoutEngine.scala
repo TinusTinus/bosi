@@ -8,6 +8,8 @@ import nl.mvdr.game.input.InputState
 /**
  * Game engine implementation for a game of Breakout.
  * 
+ * @constructor Creates a new engine.
+ * 
  * @author Martijn van de Rijdt
  */
 class BreakoutEngine extends GameEngine[BreakoutState, BreakoutInput] {
