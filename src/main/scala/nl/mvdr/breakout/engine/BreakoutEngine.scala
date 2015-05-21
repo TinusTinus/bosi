@@ -5,6 +5,11 @@ import nl.mvdr.breakout.state.BreakoutState
 import nl.mvdr.game.engine.GameEngine
 import nl.mvdr.game.input.InputState
 
+/**
+ * Game engine implementation for a game of Breakout.
+ * 
+ * @author Martijn van de Rijdt
+ */
 class BreakoutEngine extends GameEngine[BreakoutState, BreakoutInput] {
   override def initGameState: BreakoutState = new BreakoutState
 
