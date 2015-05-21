@@ -10,7 +10,7 @@ import nl.mvdr.breakout.state.BreakoutState
  * 
  * @author Martijn van de Rijdt
  */
-class DummyRenderer extends GameRenderer[BreakoutState] {
+object DummyRenderer extends GameRenderer[BreakoutState] {
   override def render(state: BreakoutState): Unit = {
     // do nothing
   }

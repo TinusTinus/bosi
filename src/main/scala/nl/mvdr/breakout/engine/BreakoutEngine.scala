@@ -12,7 +12,7 @@ import nl.mvdr.game.input.InputState
  * 
  * @author Martijn van de Rijdt
  */
-class BreakoutEngine extends GameEngine[BreakoutState, BreakoutInput] {
+object BreakoutEngine extends GameEngine[BreakoutState, BreakoutInput] {
   override def initGameState: BreakoutState = new BreakoutState
 
   override def computeNextState(previousState: BreakoutState, inputStates: java.util.List[InputState[BreakoutInput]]): BreakoutState = {

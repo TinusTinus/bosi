@@ -27,11 +27,7 @@ object Breakout extends LazyLogging {
     val inputController = new JInputController[BreakoutInput](classOf[BreakoutInput], controllerConfiguration)
     val inputControllers = List[InputController[BreakoutInput]](inputController)
     
-    val engine = new BreakoutEngine
-    
-    val renderer = new DummyRenderer
-    
-    val loop = new GameLoop(JavaConversions.seqAsJavaList(inputControllers), engine, renderer)
+    val loop = new GameLoop(JavaConversions.seqAsJavaList(inputControllers), BreakoutEngine, DummyRenderer)
     loop.start()
     
     logger.info("Started the main game loop: {}", loop)
