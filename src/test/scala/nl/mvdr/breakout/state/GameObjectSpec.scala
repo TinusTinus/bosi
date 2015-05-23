@@ -173,4 +173,16 @@ class GameObjectSpec extends FlatSpec with Matchers {
     object0 overlaps object1 should be (true)
     object1 overlaps object0 should be (true)
   }
+  
+  it should "overlap" in {
+    val object0 = new DummyGameObject(0, 0, 10, 100)
+    val object1 = new DummyGameObject(9.99, 0, 80, 5)
+    
+    object0 overlapsHorizontally object1 should be (true)
+    object1 overlapsHorizontally object0 should be (true)
+    object0 overlapsVertically object1 should be (true)
+    object1 overlapsVertically object0 should be (true)
+    object0 overlaps object1 should be (true)
+    object1 overlaps object0 should be (true)
+  }
 }
