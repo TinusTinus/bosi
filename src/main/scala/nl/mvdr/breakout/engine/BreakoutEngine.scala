@@ -30,5 +30,5 @@ object BreakoutEngine extends GameEngine[BreakoutState, BreakoutInput] {
    *            input state for the player
    * @return new game state
    */
-  private def nextState(previousState: BreakoutState, inputState: InputState[BreakoutInput]) = previousState // TODO implement for reals
+  private def nextState(previousState: BreakoutState, inputState: InputState[BreakoutInput]) = previousState.next
 }
