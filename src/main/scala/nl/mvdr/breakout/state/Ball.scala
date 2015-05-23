@@ -7,7 +7,9 @@ package nl.mvdr.breakout.state
  */
 case class Ball(override val location: Point) extends GameObject(location, BallSize.Diameter, BallSize.Diameter) {
   /** Default constructor. */
-  def this() = this(Point(PlayingField.width - BallSize.Diameter / 2, PlayingField.height - 20))
+  def this() = this(Point(PlayingField.width / 2 - BallSize.Diameter / 2, PlayingField.height - 20))
+  
+  override def character = 'o'
   
   // TODO ball movement
 }

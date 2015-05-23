@@ -54,4 +54,7 @@ abstract class GameObject(val location: Point, val width: Double, val height: Do
     
     line2Start < line1End && line1Start < line2End
   }
+  
+  /** @return the character representing this game object in the game state toString */
+  def character: Char
 }

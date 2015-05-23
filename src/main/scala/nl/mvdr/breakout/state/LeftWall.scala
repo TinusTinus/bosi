@@ -6,5 +6,5 @@ package nl.mvdr.breakout.state
  * @author Martijn van de Rijdt
  */
 object LeftWall extends GameObject(PlayingField.location, PlayingField.WallDepth, PlayingField.height) {
-
+  override def character = '|'
 }

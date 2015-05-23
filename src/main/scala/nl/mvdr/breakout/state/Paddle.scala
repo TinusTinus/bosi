@@ -40,9 +40,11 @@ case class Paddle(override val location: Point) extends GameObject(location, Pad
   }
 
   private def moveHorizontally(dx: Double) = Paddle(Point(x + dx, y))
+  
+  override def character = '='
 }
 
 object PaddleSize {
-  val Width = 80
+  val Width = 40
   val Height = 5
 }

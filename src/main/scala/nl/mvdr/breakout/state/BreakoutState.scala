@@ -45,4 +45,21 @@ case class BreakoutState(ball: Ball, paddle: Paddle, bricks: List[Brick], lives:
     if (pressed(BreakoutInput.LEFT) && !pressed(BreakoutInput.RIGHT)) paddle.moveLeft
     else if (!pressed(BreakoutInput.LEFT) && pressed(BreakoutInput.RIGHT)) paddle.moveRight
     else paddle
+    
+  override def toString: String = {
+      val playingField = for {
+        y <- 0 until PlayingField.height.toInt by 10
+        x <- 0 until PlayingField.width.toInt by 10
+      } yield {
+        val prefix = if (x == 0) "\n" else ""
+        
+        object Dummy extends GameObject(Point(x, y), 10, 10) { override def character = ' ' }
+        val objects = ball :: paddle :: bricks ::: List(LeftWall, RightWall, TopWall, PlayingField)
+        val character = objects.filter(_ overlaps Dummy).head.character
+        
+        prefix + character
+      }
+      
+      "BreakoutState" + (playingField mkString "")
+    }
 }

@@ -20,6 +20,8 @@ class GameObjectSpec extends FlatSpec with Matchers {
      * @param height height
      */
     def this(x: Double, y: Double, width: Double, height: Double) = this(Point(x, y), width, height)
+    
+    override def character = ' '
   }
   
   "A game object" should "overlap with itself" in {

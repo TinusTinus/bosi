@@ -27,4 +27,6 @@ case class Brick(override val location: Point, val hitPoints: Int) extends GameO
   def takeDamage: Option[Brick] = 
     if (hitPoints == 1) Option.empty
     else Option(copy(hitPoints = this.hitPoints - 1))
+    
+  override def character = 'B'
 }
