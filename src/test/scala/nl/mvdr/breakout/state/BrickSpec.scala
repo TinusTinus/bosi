@@ -22,13 +22,13 @@ class BrickSpec extends FlatSpec with Matchers {
   
   it should "not be allowed to have negative hit points" in {
     intercept[IllegalArgumentException] {
-      val brick = Brick(Point(0, 0), -10)
+      Brick(Point(0, 0), -10)
     }
   }
   
   it should "not be allowed to have zero hit points" in {
     intercept[IllegalArgumentException] {
-      val brick = Brick(Point(0, 0), 0)
+      Brick(Point(0, 0), 0)
     }
   }
 
