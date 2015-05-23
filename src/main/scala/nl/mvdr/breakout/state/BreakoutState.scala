@@ -45,7 +45,8 @@ case class BreakoutState(ball: Ball, paddle: Paddle, bricks: List[Brick], lives:
     if (pressed(BreakoutInput.LEFT) && !pressed(BreakoutInput.RIGHT)) paddle.moveLeft
     else if (!pressed(BreakoutInput.LEFT) && pressed(BreakoutInput.RIGHT)) paddle.moveRight
     else paddle
-    
+  
+  /** @return game state as ASCII art */
   override def toString: String = {
       val playingField = for {
         y <- 0 until PlayingField.height.toInt by 10
