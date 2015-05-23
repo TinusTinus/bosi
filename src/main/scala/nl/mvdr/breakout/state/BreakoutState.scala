@@ -1,6 +1,7 @@
 package nl.mvdr.breakout.state
 
 import nl.mvdr.game.state.GameState
+import nl.mvdr.breakout.input.BreakoutInput
 
 /**
  * Container for the game state of a game of breakout.
@@ -25,5 +26,23 @@ case class BreakoutState(ball: Ball, paddle: Paddle, bricks: List[Brick], lives:
   /** @return whether the player has lost the game */
   def lost: Boolean = lives == 0 && !(ball overlaps PlayingField)
   
-  def next: BreakoutState = ???
+  /**
+   * Computes the next state.
+   * 
+   * @param pressed which inputs have been pressed by the player
+   * @return next game state
+   */
+  def next(pressed: BreakoutInput => Boolean): BreakoutState = {
+    val newBall = ball // TODO process movement
+    val newPaddle = movePaddle(pressed)
+    val newBricks = bricks // TODO adjust hit points / remove bricks
+    val newLives = lives // TODO adjust
+    
+    BreakoutState(newBall, newPaddle, newBricks, newLives)
+  }
+  
+  private def movePaddle(pressed: BreakoutInput => Boolean): Paddle = 
+    if (pressed(BreakoutInput.LEFT) && !pressed(BreakoutInput.RIGHT)) paddle.moveLeft
+    else if (!pressed(BreakoutInput.LEFT) && pressed(BreakoutInput.RIGHT)) paddle.moveRight
+    else paddle
 }

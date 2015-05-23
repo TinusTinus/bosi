@@ -30,5 +30,6 @@ object BreakoutEngine extends GameEngine[BreakoutState, BreakoutInput] {
    *            input state for the player
    * @return new game state
    */
-  private def nextState(previousState: BreakoutState, inputState: InputState[BreakoutInput]) = previousState.next
+  private def nextState(previousState: BreakoutState, inputState: InputState[BreakoutInput]) =
+    previousState.next(inputState.isPressed)
 }
