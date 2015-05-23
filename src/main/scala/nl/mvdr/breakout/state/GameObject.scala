@@ -9,7 +9,7 @@ package nl.mvdr.breakout.state
  *
  * @author Martijn van de Rijdt
  */
-abstract class GameObject(location: Point, val width: Double, val height: Double) {
+abstract class GameObject(val location: Point, val width: Double, val height: Double) {
   /** @return x coordinate */
   def x = location.x
   /** @return y coordinate */

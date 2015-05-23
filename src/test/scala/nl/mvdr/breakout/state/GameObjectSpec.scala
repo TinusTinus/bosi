@@ -9,7 +9,7 @@ import org.scalatest._
  */
 class GameObjectSpec extends FlatSpec with Matchers {
   /** Dummy subclass of {@link GameObject}. */
-  private case class DummyGameObject(location: Point, override val width: Double, override val height: Double) 
+  private case class DummyGameObject(override val location: Point, override val width: Double, override val height: Double) 
       extends GameObject(location, width, height) {
     /**
      * Convenience constructor.
