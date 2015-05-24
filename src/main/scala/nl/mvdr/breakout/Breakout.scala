@@ -1,23 +1,15 @@
 package nl.mvdr.breakout
 
-import nl.mvdr.breakout.input.BreakoutControllerConfiguration
-import nl.mvdr.breakout.engine.BreakoutEngine
-import nl.mvdr.breakout.gui.DummyRenderer
-import nl.mvdr.game.input.JInputController
-import nl.mvdr.breakout.input.BreakoutInput
-import nl.mvdr.game.engine.GameLoop
-import scala.collection.JavaConversions
-import nl.mvdr.game.input.InputController
-import com.typesafe.scalalogging.LazyLogging
+import javafx.application.Application
 import nl.mvdr.breakout.logging.Logging
+import nl.mvdr.breakout.gui.BreakoutApplication
 
 /**
  * Main class, which launches the game.
  * 
  * @author Martijn van de Rijdt
  */
-object Breakout extends LazyLogging {
-  
+object Breakout {
   /**
    * Main method.
    * 
@@ -26,14 +18,6 @@ object Breakout extends LazyLogging {
   def main(args: Array[String]) {
     Logging.logVersionInfo()
     Logging.installSlf4jBridge()
-    
-    val controllerConfiguration = new BreakoutControllerConfiguration
-    val inputController = new JInputController[BreakoutInput](classOf[BreakoutInput], controllerConfiguration)
-    val inputControllers = List[InputController[BreakoutInput]](inputController)
-    
-    val loop = new GameLoop(JavaConversions.seqAsJavaList(inputControllers), BreakoutEngine, DummyRenderer)
-    loop.start()
-    
-    logger.info("Started the main game loop: {}", loop)
+    Application.launch(classOf[BreakoutApplication])
   }
 }
