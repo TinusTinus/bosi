@@ -20,6 +20,9 @@ import javafx.scene.paint.RadialGradient
 import nl.mvdr.breakout.state.Paddle
 import nl.mvdr.breakout.state.Ball
 import javafx.scene.shape.Ellipse
+import nl.mvdr.breakout.state.BallSize
+import nl.mvdr.breakout.state.Point
+import nl.mvdr.breakout.state.BallSize
 
 /**
  * Renders the playing field as a {@link Group}.
@@ -37,6 +40,7 @@ object PlayingFieldRenderer extends GameRenderer[BreakoutState] {
         group.getChildren.clear()
 
         group.getChildren.addAll(renderPlayingField, renderTopWall, renderLeftWall, renderRightWall)
+        group.getChildren.addAll(JavaConversions.seqAsJavaList(renderLives(state.lives)))
         group.getChildren.addAll(JavaConversions.seqAsJavaList(state.bricks map renderBrick))
         
         group.getChildren.addAll(renderPaddle(state.paddle), renderBall(state.ball))
@@ -137,4 +141,13 @@ object PlayingFieldRenderer extends GameRenderer[BreakoutState] {
   private def cy(y: Double): Int = c(y)
   
   private def c(d: Double): Int = (d * 2).intValue
+  
+  private def renderLives(lives: Int): List[Ellipse] =
+    (for {
+      x <- 0 until lives
+    } yield {
+      val margin = 5
+      val ball = Ball(Point(LeftWall.x + LeftWall.width + margin + (BallSize.Diameter + margin) * x, 0), Point(0, 0))
+      renderBall(ball)
+    }).toList
 }

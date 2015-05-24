@@ -15,6 +15,6 @@ case class Ball(override val location: Point, val speed: Point) extends GameObje
   override def character = 'o'
 }
 
-private object BallSize {
+object BallSize {
   val Diameter = 10
 }
