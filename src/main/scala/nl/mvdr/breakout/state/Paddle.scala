@@ -13,7 +13,7 @@ case class Paddle(override val location: Point) extends GameObject(location, Pad
   def this() = this(Point(PlayingField.width / 2 - PaddleSize.Width / 2, PlayingField.height - 10))
   
   /** The paddle's speed while moving, in horziontal distance per frame. Note: a frame is 1/60 of a second. */
-  private val Speed = .01
+  private val Speed = 1
   
   /**
    * Moves the paddle to the right, if it is not right up to the right wall. Otherwise leaves it in place.
