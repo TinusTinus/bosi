@@ -42,7 +42,7 @@ class BreakoutApplication extends Application with LazyLogging {
     val parent = new FlowPane(20, 20);
     val scene = new Scene(parent, Color.GRAY);
     
-    stage.setTitle("Tinustris")
+    stage.setTitle("Breakout")
     stage.setScene(scene);
     stage.show();
     logger.info("Stage shown.");
