@@ -153,9 +153,10 @@
         <executions>
           <execution>
             <id>unpacknatives</id>
-              <goals>
-                <goal>copy</goal>
-              </goals>
+            <phase>process-resources</phase>
+            <goals>
+              <goal>copy</goal>
+            </goals>
             </execution>
           </executions>
         </plugin>
