@@ -62,7 +62,7 @@ case class BreakoutState(ball: Ball, paddle: Paddle, bricks: List[Brick], lives:
           logger.info("Ball bounces off the paddle to the left: {}, {}", ball, paddle)
           bounceHorizontally = true
         }
-        if (paddle.x < ball.x && ball.speed.x < 0) {
+        if (paddle.x + paddle.width < ball.x + ball.width && ball.speed.x < 0) {
           logger.info("Ball bounces off the paddle to the right: {}, {}", ball, paddle)
           bounceHorizontally = true
         }
@@ -70,7 +70,7 @@ case class BreakoutState(ball: Ball, paddle: Paddle, bricks: List[Brick], lives:
           logger.info("Ball bounces upwards off the paddle: {}, {}", ball, paddle)
           bounceVertically = true
         }
-        if (paddle.y < ball.y && ball.speed.y < 0) {
+        if (paddle.y + paddle.height < ball.y + ball.height && ball.speed.y < 0) {
           logger.info("Ball bounces downwards off the paddle: {}, {}", ball, paddle)
           bounceVertically = true
         }
@@ -90,7 +90,7 @@ case class BreakoutState(ball: Ball, paddle: Paddle, bricks: List[Brick], lives:
             logger.info("Ball bounces off a brick to the left: {}, {}", ball, brick)
             bounceHorizontally = true
           }
-          if (brick.x < ball.x && ball.speed.x < 0) {
+          if (brick.x + brick.width < ball.x + ball.width && ball.speed.x < 0) {
             logger.info("Ball bounces off a brick to the right: {}, {}", ball, brick)
             bounceHorizontally = true
           }
@@ -98,7 +98,7 @@ case class BreakoutState(ball: Ball, paddle: Paddle, bricks: List[Brick], lives:
             logger.info("Ball bounces upwards off a brick: {}, {}", ball, brick)
             bounceVertically = true
           }
-          if (brick.y < ball.y && ball.speed.y < 0) {
+          if (brick.y + brick.height < ball.y + ball. height && ball.speed.y < 0) {
             logger.info("Ball bounces downwards off a brick: {}, {}", ball, brick)
             bounceVertically = true
           }
