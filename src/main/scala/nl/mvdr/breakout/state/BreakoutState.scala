@@ -2,6 +2,7 @@ package nl.mvdr.breakout.state
 
 import nl.mvdr.game.state.GameState
 import nl.mvdr.breakout.input.BreakoutInput
+import com.typesafe.scalalogging.LazyLogging
 
 /**
  * Container for the game state of a game of breakout.
@@ -13,9 +14,9 @@ import nl.mvdr.breakout.input.BreakoutInput
  * 
  * @author Martijn van de Rijdt
  */
-case class BreakoutState(ball: Ball, paddle: Paddle, bricks: List[Brick], lives: Int) extends GameState {
+case class BreakoutState(ball: Ball, paddle: Paddle, bricks: List[Brick], lives: Int) extends GameState with LazyLogging {
   /** Default constructor. */
-  def this() = this(new Ball, new Paddle, StartingBricks(), 0) // TODO start with 2 lives
+  def this() = this(new Ball, new Paddle, StartingBricks(), 2)
   
   override def isGameOver: Boolean = won || lost
   
@@ -24,20 +25,48 @@ case class BreakoutState(ball: Ball, paddle: Paddle, bricks: List[Brick], lives:
   
   /** @return whether the player has lost the game */
   def lost: Boolean = lives == 0 && !(ball overlaps PlayingField)
-  
+
   /**
    * Computes the next state.
-   * 
+   *
    * @param pressed which inputs have been pressed by the player
    * @return next game state
    */
   def next(pressed: BreakoutInput => Boolean): BreakoutState = {
-    val newBall = ball.move
-    val newPaddle = movePaddle(pressed)
-    val newBricks = bricks // TODO adjust hit points / remove bricks
-    val newLives = lives // TODO adjust
-    
-    BreakoutState(newBall, newPaddle, newBricks, newLives)
+    if (!(ball overlaps PlayingField)) {
+      logger.info("Ball left the playing field: {}. Remaining lives: {}", ball, (lives - 1).toString)
+      BreakoutState(new Ball, movePaddle(pressed), bricks, lives - 1)
+    } else {
+      var bounceHorizontally: Boolean = false
+      var bounceVertically: Boolean = false
+
+      if ((ball overlaps LeftWall) && ball.speed.x < 0) {
+        logger.info("Ball bounces off left wall: {}.", ball)
+        bounceHorizontally = true
+      }
+      if ((ball overlaps RightWall) && 0 < ball.speed.x) {
+        logger.info("Ball bounces off right wall: {}.", ball)
+        bounceHorizontally = true
+      }
+      if ((ball overlaps TopWall) && ball.speed.y < 0) {
+        logger.info("Ball bounces off top wall: {}.", ball)
+        bounceVertically = true
+      }
+      // TODO paddle
+      // TODO bricks
+
+      var newSpeed = ball.speed
+      if (bounceHorizontally) newSpeed = newSpeed.copy(x = -newSpeed.x)
+      if (bounceVertically) newSpeed = newSpeed.copy(y = -newSpeed.y)
+      if (bounceHorizontally || bounceVertically) newSpeed = newSpeed // TODO add a bit of randomisation here
+
+      val newBall = Ball(ball.location + newSpeed, newSpeed)
+      val newPaddle = movePaddle(pressed)
+      val newBricks = bricks // TODO adjust hit points / remove bricks
+      val newLives = lives // TODO adjust
+
+      BreakoutState(newBall, newPaddle, newBricks, newLives)
+    }
   }
   
   private def movePaddle(pressed: BreakoutInput => Boolean): Paddle = 

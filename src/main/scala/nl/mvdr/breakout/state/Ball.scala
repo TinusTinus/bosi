@@ -13,9 +13,6 @@ case class Ball(override val location: Point, val speed: Point) extends GameObje
   def this() = this(Point(PlayingField.width / 2 - BallSize.Diameter / 2, PlayingField.height - 20), new Point(1, -1))
   
   override def character = 'o'
-
-  /** Moves the ball according to its current speed. */
-  def move: Ball = Ball(location + speed, speed) // TODO take objects into account
 }
 
 private object BallSize {
