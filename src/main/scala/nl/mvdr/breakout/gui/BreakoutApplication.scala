@@ -44,9 +44,8 @@ class BreakoutApplication extends Application with LazyLogging {
     
     stage.setTitle("Breakout")
     stage.setScene(scene)
-    // TODO fix the size
-//    stage.setWidth(PlayingField.width.intValue)
-//    stage.setHeight(PlayingField.height.intValue)
+    stage.setWidth(PlayingField.width.intValue * 2 + 15)
+    stage.setHeight(PlayingField.height.intValue * 2 + 50)
     stage.show();
     logger.info("Stage shown.");
   }
