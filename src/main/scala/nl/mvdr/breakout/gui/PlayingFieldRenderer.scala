@@ -18,8 +18,8 @@ import nl.mvdr.breakout.state.TopWall
 import nl.mvdr.breakout.state.Brick
 import javafx.scene.paint.RadialGradient
 import nl.mvdr.breakout.state.Paddle
-import javafx.scene.shape.Circle
 import nl.mvdr.breakout.state.Ball
+import javafx.scene.shape.Ellipse
 
 /**
  * Renders the playing field as a {@link Group}.
@@ -27,7 +27,7 @@ import nl.mvdr.breakout.state.Ball
  * @author Martijn van de Rijdt
  */
 object PlayingFieldRenderer extends GameRenderer[BreakoutState] {
-  private val ArcSize = c(5)
+  private val ArcSize = 5
   
   val group = new Group
 
@@ -101,10 +101,10 @@ object PlayingFieldRenderer extends GameRenderer[BreakoutState] {
   }
   
   private def renderGameObject(gameObject: GameObject): Rectangle =
-    new Rectangle(c(gameObject.x), c(gameObject.y), c(gameObject.width), c(gameObject.height))
+    new Rectangle(cx(gameObject.x), cy(gameObject.y), cx(gameObject.width), cy(gameObject.height))
   
-  private def renderBall(ball: Ball): Circle = {
-    val result = new Circle(c(ball.x + ball.width / 2), c(ball.y) + c(ball.height / 2), c(ball.width / 2))
+  private def renderBall(ball: Ball): Ellipse = {
+    val result = new Ellipse(cx(ball.x + ball.width / 2), cy(ball.y + ball.height / 2), cx(ball.width / 2), cy(ball.height / 2))
     
     val fill = new RadialGradient(0,
       1,
@@ -121,10 +121,20 @@ object PlayingFieldRenderer extends GameRenderer[BreakoutState] {
   }
   
   /**
-   * Converts a coordinate in the model (playing field) to a coordinate in pixels.
+   * Converts a horizontal coordinate in the model (playing field) to a coordinate in pixels.
    * 
    * @param coordinate
    * @return coordinate in pixels
    */
-  private def c(x: Double): Int = (x * 2).intValue
+  private def cx(x: Double): Int = c(x)
+  
+  /**
+   * Converts a vertical coordinate in the model (playing field) to a coordinate in pixels.
+   * 
+   * @param coordinate
+   * @return coordinate in pixels
+   */
+  private def cy(y: Double): Int = c(y)
+  
+  private def c(d: Double): Int = (d * 2).intValue
 }
