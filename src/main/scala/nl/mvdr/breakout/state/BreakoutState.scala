@@ -3,6 +3,7 @@ package nl.mvdr.breakout.state
 import nl.mvdr.game.state.GameState
 import nl.mvdr.breakout.input.BreakoutInput
 import com.typesafe.scalalogging.LazyLogging
+import scala.util.Random
 
 /**
  * Container for the game state of a game of breakout.
@@ -37,9 +38,11 @@ case class BreakoutState(ball: Ball, paddle: Paddle, bricks: List[Brick], lives:
       logger.info("Ball left the playing field: {}. Remaining lives: {}", ball, (lives - 1).toString)
       BreakoutState(new Ball, movePaddle(pressed), bricks, lives - 1)
     } else {
+      // Determine how the ball should bounce.
       var bounceHorizontally: Boolean = false
       var bounceVertically: Boolean = false
 
+      // walls
       if ((ball overlaps LeftWall) && ball.speed.x < 0) {
         logger.info("Ball bounces off left wall: {}.", ball)
         bounceHorizontally = true
@@ -52,6 +55,8 @@ case class BreakoutState(ball: Ball, paddle: Paddle, bricks: List[Brick], lives:
         logger.info("Ball bounces off top wall: {}.", ball)
         bounceVertically = true
       }
+      
+      // paddle
       if (ball overlaps paddle) {
         if (ball.x < paddle.x && 0 < ball.speed.x) {
           logger.info("Ball bounces off the paddle to the left: {}, {}", ball, paddle)
@@ -71,6 +76,7 @@ case class BreakoutState(ball: Ball, paddle: Paddle, bricks: List[Brick], lives:
         }
       }
 
+      // bricks
       var newBricks = bricks
       bricks filter (_ overlaps ball) match {
         case List() => // ball didn't collide with any bricks, do nothing
@@ -102,7 +108,8 @@ case class BreakoutState(ball: Ball, paddle: Paddle, bricks: List[Brick], lives:
       var newSpeed = ball.speed
       if (bounceHorizontally) newSpeed = newSpeed.copy(x = -newSpeed.x)
       if (bounceVertically) newSpeed = newSpeed.copy(y = -newSpeed.y)
-      if (bounceHorizontally || bounceVertically) newSpeed = newSpeed // TODO add a bit of randomisation here
+      // add a bit of randomisation if the ball bounced
+      if (bounceHorizontally || bounceVertically) newSpeed = randomisePoint(newSpeed)
 
       val newBall = Ball(ball.location + newSpeed, newSpeed)
       val newPaddle = movePaddle(pressed)
@@ -115,6 +122,12 @@ case class BreakoutState(ball: Ball, paddle: Paddle, bricks: List[Brick], lives:
     if (pressed(BreakoutInput.LEFT) && !pressed(BreakoutInput.RIGHT)) paddle.moveLeft
     else if (!pressed(BreakoutInput.LEFT) && pressed(BreakoutInput.RIGHT)) paddle.moveRight
     else paddle
+    
+  private def randomisePoint(point: Point): Point =
+    Point(randomise(point.x), randomise(point.y))
+  
+  private def randomise(double: Double): Double =
+    double + Random.nextDouble / 100 - .05
   
   /** @return game state as ASCII art */
   override def toString: String = {
