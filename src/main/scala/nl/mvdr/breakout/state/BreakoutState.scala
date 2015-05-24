@@ -16,7 +16,7 @@ import nl.mvdr.breakout.input.BreakoutInput
 case class BreakoutState(ball: Ball, paddle: Paddle, bricks: List[Brick], lives: Int) extends GameState {
   /** Default constructor. */
   // TODO add bricks
-  def this() = this(new Ball, new Paddle, List(), 2)
+  def this() = this(new Ball, new Paddle, StartingBricks(), 0) // TODO start with more lives
   
   override def isGameOver: Boolean = won || lost
   
@@ -63,4 +63,10 @@ case class BreakoutState(ball: Ball, paddle: Paddle, bricks: List[Brick], lives:
       
       "BreakoutState" + (playingField mkString "")
     }
+}
+
+private object StartingBricks extends Function0[List[Brick]] {
+  override def apply: List[Brick] = (for {
+    x <- (LeftWall.x + LeftWall.width.intValue + 10) to (RightWall.x.intValue - 10 - BrickSize.Width) by BrickSize.Width + 10
+  } yield Brick(Point(x, 3), 1)).toList
 }

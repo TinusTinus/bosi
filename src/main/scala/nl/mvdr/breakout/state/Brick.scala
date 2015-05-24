@@ -8,7 +8,7 @@ package nl.mvdr.breakout.state
  * 
  * @author Martijn van de Rijdt
  */
-case class Brick(override val location: Point, val hitPoints: Int) extends GameObject(location, 40, 10) {
+case class Brick(override val location: Point, val hitPoints: Int) extends GameObject(location, BrickSize.Width, BrickSize.Height) {
   
   require(0 < hitPoints)
   
@@ -28,5 +28,10 @@ case class Brick(override val location: Point, val hitPoints: Int) extends GameO
     if (hitPoints == 1) Option.empty
     else Option(copy(hitPoints = this.hitPoints - 1))
     
-  override def character = 'B'
+  override def character = hitPoints.toString.last
+}
+
+object BrickSize {
+  val Width = 30
+  val Height = 10
 }
