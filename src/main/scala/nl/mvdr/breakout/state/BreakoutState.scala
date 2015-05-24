@@ -70,7 +70,34 @@ case class BreakoutState(ball: Ball, paddle: Paddle, bricks: List[Brick], lives:
           bounceVertically = true
         }
       }
-      // TODO bricks
+
+      var newBricks = bricks
+      bricks filter (_ overlaps ball) match {
+        case List() => // ball didn't collide with any bricks, do nothing
+        case brick :: _ => {
+          // update the brick
+          newBricks = newBricks filter (_ != brick)
+          brick.takeDamage.map(b => newBricks = b :: newBricks)
+
+          // check how the ball should bounce
+          if (ball.x < brick.x && 0 < ball.speed.x) {
+            logger.info("Ball bounces off a brick to the left: {}, {}", ball, brick)
+            bounceHorizontally = true
+          }
+          if (brick.x < ball.x && ball.speed.x < 0) {
+            logger.info("Ball bounces off a brick to the right: {}, {}", ball, brick)
+            bounceHorizontally = true
+          }
+          if (ball.y < brick.y && 0 < ball.speed.y) {
+            logger.info("Ball bounces upwards off a brick: {}, {}", ball, brick)
+            bounceVertically = true
+          }
+          if (brick.y < ball.y && ball.speed.y < 0) {
+            logger.info("Ball bounces downwards off a brick: {}, {}", ball, brick)
+            bounceVertically = true
+          }
+        }
+      }
 
       var newSpeed = ball.speed
       if (bounceHorizontally) newSpeed = newSpeed.copy(x = -newSpeed.x)
@@ -79,10 +106,8 @@ case class BreakoutState(ball: Ball, paddle: Paddle, bricks: List[Brick], lives:
 
       val newBall = Ball(ball.location + newSpeed, newSpeed)
       val newPaddle = movePaddle(pressed)
-      val newBricks = bricks // TODO adjust hit points / remove bricks
-      val newLives = lives // TODO adjust
 
-      BreakoutState(newBall, newPaddle, newBricks, newLives)
+      BreakoutState(newBall, newPaddle, newBricks, lives)
     }
   }
   
