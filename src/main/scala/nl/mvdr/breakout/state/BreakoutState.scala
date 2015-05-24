@@ -144,7 +144,12 @@ case class BreakoutState(ball: Ball, paddle: Paddle, bricks: List[Brick], lives:
         prefix + character
       }
       
-      "BreakoutState" + (playingField mkString "")
+      val suffix =
+        if (won) "\nYou win!"
+        else if (lost) "\nGame over"
+        else ""
+      
+      "BreakoutState" + (playingField mkString "") + "\nLives: " + lives + suffix
     }
 }
 
