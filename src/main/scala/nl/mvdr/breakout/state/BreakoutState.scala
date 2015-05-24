@@ -15,8 +15,7 @@ import nl.mvdr.breakout.input.BreakoutInput
  */
 case class BreakoutState(ball: Ball, paddle: Paddle, bricks: List[Brick], lives: Int) extends GameState {
   /** Default constructor. */
-  // TODO add bricks
-  def this() = this(new Ball, new Paddle, StartingBricks(), 0) // TODO start with more lives
+  def this() = this(new Ball, new Paddle, StartingBricks(), 0) // TODO start with 2 lives
   
   override def isGameOver: Boolean = won || lost
   
@@ -66,11 +65,22 @@ case class BreakoutState(ball: Ball, paddle: Paddle, bricks: List[Brick], lives:
 }
 
 private object StartingBricks extends Function0[List[Brick]] {
-  
+  /** The gap between bricks, and the minimal gap between a brick and a wall. */
   val Gap = 10
   
+  /** @return a list containing the initial bricks at the start of a game of Breakout */
   override def apply: List[Brick] = (for {
-    x <- (LeftWall.x + LeftWall.width + Gap) to (RightWall.x- Gap - BrickSize.Width) by BrickSize.Width + Gap
+    x <- (LeftWall.x + LeftWall.width + Gap) to (RightWall.x - Gap - BrickSize.Width) by BrickSize.Width + Gap
     y <- (TopWall.x + TopWall.height + Gap) to (PlayingField.height / 2) by BrickSize.Height + Gap
-  } yield Brick(Point(x, y), 1)).toList
+  } yield {
+    val location = Point(x, y)
+    val hitPoints =
+      if (y == TopWall.x + TopWall.height + Gap)
+        3 // top row
+      else if (y == TopWall.x + TopWall.height + Gap + BrickSize.Height + Gap)
+        2 // second row
+      else
+        1 // everything else
+    Brick(location , hitPoints)
+  }).toList
 }
