@@ -15,6 +15,7 @@ import nl.mvdr.breakout.state.BreakoutState
 import javafx.scene.Scene
 import javafx.scene.layout.FlowPane
 import javafx.scene.paint.Color
+import nl.mvdr.breakout.state.PlayingField
 
 /**
  * Main entry point for launching the application.
@@ -34,17 +35,18 @@ class BreakoutApplication extends Application with LazyLogging {
     val inputController = new JInputController(classOf[BreakoutInput], controllerConfiguration)
     val inputControllers = List(inputController)
     
-    gameLoop = Option(new GameLoop(JavaConversions.seqAsJavaList(inputControllers), BreakoutEngine, AsciiRenderer))
+    gameLoop = Option(new GameLoop(JavaConversions.seqAsJavaList(inputControllers), BreakoutEngine, PlayingFieldRenderer))
     gameLoop.get.start()
     
     logger.info("Started the main game loop: {}", gameLoop.get)
     
-    val scene = new Scene(AsciiRenderer.label, Color.GRAY);
+    val scene = new Scene(PlayingFieldRenderer.group, Color.WHITE);
     
     stage.setTitle("Breakout")
     stage.setScene(scene)
-    stage.setWidth(200)
-    stage.setHeight(800)
+    // TODO fix the size
+//    stage.setWidth(PlayingField.width.intValue)
+//    stage.setHeight(PlayingField.height.intValue)
     stage.show();
     logger.info("Stage shown.");
   }
