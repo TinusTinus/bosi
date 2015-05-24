@@ -31,7 +31,7 @@ object PlayingFieldRenderer extends GameRenderer[BreakoutState] {
   
   val group = new Group
 
-  def render(state: BreakoutState): Unit = {
+  override def render(state: BreakoutState): Unit = {
     object runnable extends Runnable {
       def run(): Unit = {
         group.getChildren.clear()
