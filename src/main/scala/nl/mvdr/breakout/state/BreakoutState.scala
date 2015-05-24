@@ -33,7 +33,7 @@ case class BreakoutState(ball: Ball, paddle: Paddle, bricks: List[Brick], lives:
    * @return next game state
    */
   def next(pressed: BreakoutInput => Boolean): BreakoutState = {
-    val newBall = ball // TODO process movement
+    val newBall = ball.move
     val newPaddle = movePaddle(pressed)
     val newBricks = bricks // TODO adjust hit points / remove bricks
     val newLives = lives // TODO adjust
