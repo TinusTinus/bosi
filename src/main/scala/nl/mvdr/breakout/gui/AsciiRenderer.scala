@@ -18,7 +18,7 @@ object AsciiRenderer extends GameRenderer[BreakoutState] {
   override def render(state: BreakoutState): Unit = {
     object runnable extends Runnable {
       def run(): Unit = label.setText(state.toString)
-    } 
+    }
     
     Platform.runLater(runnable)
   }

@@ -42,7 +42,9 @@ class BreakoutApplication extends Application with LazyLogging {
     val scene = new Scene(AsciiRenderer.label, Color.GRAY);
     
     stage.setTitle("Breakout")
-    stage.setScene(scene);
+    stage.setScene(scene)
+    stage.setWidth(200)
+    stage.setHeight(800)
     stage.show();
     logger.info("Stage shown.");
   }
