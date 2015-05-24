@@ -9,6 +9,7 @@ import nl.mvdr.game.engine.GameLoop
 import scala.collection.JavaConversions
 import nl.mvdr.game.input.InputController
 import com.typesafe.scalalogging.LazyLogging
+import nl.mvdr.breakout.logging.Logging
 
 /**
  * Main class, which launches the game.
@@ -23,6 +24,9 @@ object Breakout extends LazyLogging {
    * @param args command line parameters; these are ignored
    */
   def main(args: Array[String]) {
+    Logging.logVersionInfo()
+    Logging.installSlf4jBridge()
+    
     val controllerConfiguration = new BreakoutControllerConfiguration
     val inputController = new JInputController[BreakoutInput](classOf[BreakoutInput], controllerConfiguration)
     val inputControllers = List[InputController[BreakoutInput]](inputController)
