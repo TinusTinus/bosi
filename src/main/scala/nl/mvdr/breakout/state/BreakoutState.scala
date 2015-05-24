@@ -66,7 +66,11 @@ case class BreakoutState(ball: Ball, paddle: Paddle, bricks: List[Brick], lives:
 }
 
 private object StartingBricks extends Function0[List[Brick]] {
+  
+  val Gap = 10
+  
   override def apply: List[Brick] = (for {
-    x <- (LeftWall.x + LeftWall.width.intValue + 10) to (RightWall.x.intValue - 10 - BrickSize.Width) by BrickSize.Width + 10
-  } yield Brick(Point(x, 3), 1)).toList
+    x <- (LeftWall.x + LeftWall.width + Gap) to (RightWall.x- Gap - BrickSize.Width) by BrickSize.Width + Gap
+    y <- (TopWall.x + TopWall.height + Gap) to (PlayingField.height / 2) by BrickSize.Height + Gap
+  } yield Brick(Point(x, y), 1)).toList
 }
