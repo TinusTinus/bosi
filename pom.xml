@@ -133,8 +133,6 @@
             </execution>
           </executions>
         </plugin>
-      
-      <!-- TODO add an assembly descriptor to build a zip -->
     </plugins>
   </build>
 
