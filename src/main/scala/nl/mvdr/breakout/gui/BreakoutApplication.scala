@@ -34,13 +34,12 @@ class BreakoutApplication extends Application with LazyLogging {
     val inputController = new JInputController(classOf[BreakoutInput], controllerConfiguration)
     val inputControllers = List(inputController)
     
-    gameLoop = Option(new GameLoop(JavaConversions.seqAsJavaList(inputControllers), BreakoutEngine, DummyRenderer))
+    gameLoop = Option(new GameLoop(JavaConversions.seqAsJavaList(inputControllers), BreakoutEngine, AsciiRenderer))
     gameLoop.get.start()
     
     logger.info("Started the main game loop: {}", gameLoop.get)
     
-    val parent = new FlowPane(20, 20);
-    val scene = new Scene(parent, Color.GRAY);
+    val scene = new Scene(AsciiRenderer.label, Color.GRAY);
     
     stage.setTitle("Breakout")
     stage.setScene(scene);
