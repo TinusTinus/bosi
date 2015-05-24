@@ -52,7 +52,24 @@ case class BreakoutState(ball: Ball, paddle: Paddle, bricks: List[Brick], lives:
         logger.info("Ball bounces off top wall: {}.", ball)
         bounceVertically = true
       }
-      // TODO paddle
+      if (ball overlaps paddle) {
+        if (ball.x < paddle.x && 0 < ball.speed.x) {
+          logger.info("Ball bounces off the paddle to the left: {}, {}", ball, paddle)
+          bounceHorizontally = true
+        }
+        if (paddle.x < ball.x && ball.speed.x < 0) {
+          logger.info("Ball bounces off the paddle to the right: {}, {}", ball, paddle)
+          bounceHorizontally = true
+        }
+        if (ball.y < paddle.y && 0 < ball.speed.y) {
+          logger.info("Ball bounces upwards off the paddle: {}, {}", ball, paddle)
+          bounceVertically = true
+        }
+        if (paddle.y < ball.y && ball.speed.y < 0) {
+          logger.info("Ball bounces downwards off the paddle: {}, {}", ball, paddle)
+          bounceVertically = true
+        }
+      }
       // TODO bricks
 
       var newSpeed = ball.speed
