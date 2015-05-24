@@ -27,7 +27,7 @@ import nl.mvdr.breakout.state.Ball
  * @author Martijn van de Rijdt
  */
 object PlayingFieldRenderer extends GameRenderer[BreakoutState] {
-  private val ArcSize = 10
+  private val ArcSize = c(5)
   
   val group = new Group
 
@@ -101,10 +101,10 @@ object PlayingFieldRenderer extends GameRenderer[BreakoutState] {
   }
   
   private def renderGameObject(gameObject: GameObject): Rectangle =
-    new Rectangle(gameObject.x.intValue, gameObject.y.intValue, gameObject.width.intValue, gameObject.height.intValue)
+    new Rectangle(c(gameObject.x), c(gameObject.y), c(gameObject.width), c(gameObject.height))
   
   private def renderBall(ball: Ball): Circle = {
-    val result = new Circle(ball.x + ball.width / 2, ball.y + ball.height / 2, ball.width / 2)
+    val result = new Circle(c(ball.x + ball.width / 2), c(ball.y) + c(ball.height / 2), c(ball.width / 2))
     
     val fill = new RadialGradient(0,
       1,
@@ -119,4 +119,12 @@ object PlayingFieldRenderer extends GameRenderer[BreakoutState] {
     
     result
   }
+  
+  /**
+   * Converts a coordinate in the model (playing field) to a coordinate in pixels.
+   * 
+   * @param coordinate
+   * @return coordinate in pixels
+   */
+  private def c(x: Double): Int = (x * 2).intValue
 }
