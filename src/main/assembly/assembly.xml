@@ -7,11 +7,11 @@
 	</formats>
 	<baseDirectory>bosi</baseDirectory>
 	<fileSets>
-		<!--fileSet>
-			<directory>${basedir}/files</directory>
+		<fileSet>
+			<directory>${basedir}/src/main/assembly/files</directory>
 			<outputDirectory>/</outputDirectory>
 			<lineEnding>unix</lineEnding>
-		</fileSet-->
+		</fileSet>
 		<fileSet>
 			<directory>${project.build.directory}/natives</directory>
 			<outputDirectory>/natives</outputDirectory>
