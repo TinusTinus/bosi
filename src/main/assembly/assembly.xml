@@ -6,6 +6,18 @@
 		<format>zip</format>
 	</formats>
 	<baseDirectory>bosi</baseDirectory>
+	<files>
+		<file>
+			<source>README.md</source>
+			<outputDirectory>/</outputDirectory>
+			<destName>readme.txt</destName>
+		</file>
+		<file>
+			<source>LICENSE.txt</source>
+			<outputDirectory>/</outputDirectory>
+			<destName>gpl.txt</destName>
+		</file>
+	</files>
 	<fileSets>
 		<fileSet>
 			<directory>${basedir}/src/main/assembly/files</directory>
