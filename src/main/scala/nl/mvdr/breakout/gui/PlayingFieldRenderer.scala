@@ -103,5 +103,20 @@ object PlayingFieldRenderer extends GameRenderer[BreakoutState] {
   private def renderGameObject(gameObject: GameObject): Rectangle =
     new Rectangle(gameObject.x.intValue, gameObject.y.intValue, gameObject.width.intValue, gameObject.height.intValue)
   
-  private def renderBall(ball: Ball): Circle = new Circle(ball.x + ball.width / 2, ball.y + ball.height / 2, ball.width / 2, Color.LIGHTGRAY)
+  private def renderBall(ball: Ball): Circle = {
+    val result = new Circle(ball.x + ball.width / 2, ball.y + ball.height / 2, ball.width / 2)
+    
+    val fill = new RadialGradient(0,
+      1,
+      result.getCenterX,
+      result.getCenterY,
+      20,
+      false,
+      CycleMethod.NO_CYCLE,
+      new Stop(0, Color.GRAY),
+      new Stop(1, Color.WHITE));
+    result.setFill(fill)
+    
+    result
+  }
 }
