@@ -13,8 +13,8 @@
  */
 package nl.mvdr.breakout.input
 
-import nl.mvdr.game.input.JInputControllerConfiguration
-import nl.mvdr.game.input.InputMapping
+import nl.mvdr.game.jinput.JInputControllerConfiguration
+import nl.mvdr.game.jinput.InputMapping
 import net.java.games.input.Controller
 import scala.collection.JavaConversions
 import net.java.games.input.ControllerEnvironment

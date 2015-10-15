@@ -14,7 +14,7 @@
 package nl.mvdr.breakout.gui
 
 import javafx.application.Application
-import nl.mvdr.game.input.JInputController
+import nl.mvdr.game.jinput.JInputController
 import com.typesafe.scalalogging.LazyLogging
 import nl.mvdr.breakout.input.BreakoutInput
 import nl.mvdr.breakout.engine.BreakoutEngine
