@@ -21,7 +21,7 @@ import nl.mvdr.breakout.engine.BreakoutEngine
 import nl.mvdr.game.input.InputController
 import nl.mvdr.breakout.input.BreakoutControllerConfiguration
 import nl.mvdr.game.engine.GameLoop
-import nl.mvdr.breakout.logging.Logging
+import nl.mvdr.breakout.logging.BreakoutLogging
 import scala.collection.JavaConversions
 import javafx.stage.Stage
 import nl.mvdr.breakout.state.BreakoutState
@@ -42,7 +42,7 @@ class BreakoutApplication extends Application with LazyLogging {
   override def start(stage: Stage): Unit = {
     logger.info("Starting the application.")
     
-    Logging.setUncaughtExceptionHandler()
+    BreakoutLogging.setUncaughtExceptionHandler()
     
     val controllerConfiguration = new BreakoutControllerConfiguration
     val inputController = new JInputController(classOf[BreakoutInput], controllerConfiguration)
